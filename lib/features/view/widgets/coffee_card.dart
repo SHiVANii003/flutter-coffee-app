@@ -11,84 +11,102 @@ class CoffeeCard extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return Container(
-      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: colors.surface,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Row(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // IMAGE 
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: SizedBox(
-              width: 70,
-              height: 70,
-              child: Image.network(
-                coffee.imageUrl,
-                fit: BoxFit.cover,
-
-                // Loading state
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-
-                  return Container(
-                    color: colors.surface,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: colors.primary,
-                      ),
-                    ),
-                  );
-                },
-
-                // Error fallback 
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: colors.surface,
-                    child: Icon(Icons.coffee, color: colors.primary, size: 28),
-                  );
-                },
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: SizedBox(
+                  height: 120, 
+                  width: double.infinity,
+                  child: Image.network(coffee.imageUrl, fit: BoxFit.cover),
+                ),
               ),
-            ),
-          ),
-
-          const SizedBox(width: 16),
-
-          // TEXT
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  coffee.name,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: colors.surface,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.favorite_border,
+                    size: 16,
                     color: colors.primary,
                   ),
                 ),
-                const SizedBox(height: 6),
-                Text(
-                  coffee.description,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: colors.onSurface,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
 
-          // PRICE
+          const SizedBox(height: 10),
+
+          // TITLE 
           Text(
-            '₹${coffee.price}',
+            coffee.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
               color: colors.primary,
             ),
+          ),
+
+          const SizedBox(height: 4),
+
+          // DESCRIPTION 
+          Text(
+            coffee.description,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 11,
+              color: colors.onSurface,
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
+          // PRICE + BUTTON 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '₹${coffee.price}',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: colors.primary,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colors.primary,
+                    foregroundColor: colors.onPrimary,
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: const Text('Buy', style: TextStyle(fontSize: 12)),
+                ),
+              ),
+            ],
           ),
         ],
       ),
