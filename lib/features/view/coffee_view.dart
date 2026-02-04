@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/view-model/coffee_viewmodel.dart';
+import 'package:flutter_application_1/features/view/coffee_cart.dart';
+import 'package:flutter_application_1/features/view/widgets/coffee_card.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_application_1/features/view-model/coffee_viewmodel.dart';
-import 'package:flutter_application_1/features/view/widgets/coffee_card.dart';
-import 'package:flutter_application_1/features/view/coffee_cart.dart';
+import '../../../core/responsive/responsive_builder.dart';
 
 class CoffeeView extends StatelessWidget {
   const CoffeeView({super.key});
@@ -37,37 +38,32 @@ class CoffeeView extends StatelessWidget {
           ],
         ),
         actions: [
-          InkWell(
-            onTap: () {
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const CartScreen()),
               );
             },
-            child: const Icon(Icons.shopping_cart),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
         ],
       ),
 
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final isMobile = constraints.maxWidth < 600;
-
+      body: ResponsiveBuilder(
+        builder: (context, config) {
           return Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 410),
+              constraints: BoxConstraints(maxWidth: config.maxWidth),
               child: GridView.builder(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 16,
-                ),
+                padding: const EdgeInsets.all(10),
                 itemCount: vm.coffees.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 2 : 3,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: isMobile ? 0.72 : 0.85,
+                  crossAxisCount: config.columns,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: config.aspectRatio,
                 ),
                 itemBuilder: (context, index) {
                   return CoffeeCard(coffee: vm.coffees[index]);
