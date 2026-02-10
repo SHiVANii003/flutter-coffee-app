@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/view-model/coffee_viewmodel.dart';
-import 'package:flutter_application_1/features/view/coffee_view.dart';
+import 'package:flutter_application_1/features/coffee/data/coffee_repository.dart';
+import 'package:flutter_application_1/features/coffee/view-model/coffee_viewmodel.dart';
+import 'package:flutter_application_1/features/coffee/view/coffee_view.dart';
 import 'theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => CoffeeViewModel(),
+      create: (_) => CoffeeViewModel(CoffeeRepository())..loadCoffees(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/view-model/coffee_viewmodel.dart';
-import 'package:flutter_application_1/features/view/coffee_cart.dart';
-import 'package:flutter_application_1/features/view/widgets/coffee_card.dart';
+import 'package:flutter_application_1/features/coffee/view-model/coffee_viewmodel.dart';
+import 'package:flutter_application_1/features/coffee/view/coffee_cart.dart';
+import 'package:flutter_application_1/core/widgets/coffee_card.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/responsive/responsive_builder.dart';
+import '../../../../core/responsive/responsive_builder.dart';
 
 class CoffeeView extends StatelessWidget {
   const CoffeeView({super.key});
@@ -38,15 +38,46 @@ class CoffeeView extends StatelessWidget {
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const CartScreen()),
-              );
-            },
+          //  CART ICON WITH BADGE
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.shopping_cart),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CartScreen()),
+                  );
+                },
+              ),
+
+              if (vm.cartItemCount > 0)
+                Positioned(
+                  right: 6,
+                  top: 6,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: colors.primary,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      '${vm.cartItemCount}',
+                      style: TextStyle(
+                        color: colors.onPrimary,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
+
           const SizedBox(width: 12),
         ],
       ),
