@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/cart/view/cart_view.dart';
 import 'package:flutter_application_1/features/coffee/view-model/coffee_viewmodel.dart';
-import 'package:flutter_application_1/features/coffee/view/coffee_details_view.dart';
+import 'package:flutter_application_1/features/details/view/coffee_details_view.dart';
 import 'package:flutter_application_1/features/coffee/widgets/coffee_card.dart';
 import 'package:provider/provider.dart';
 
