@@ -6,8 +6,9 @@ import 'like_button.dart';
 
 class CoffeeCard extends StatelessWidget {
   final CoffeeItem coffee;
+  final VoidCallback onTap;
 
-  const CoffeeCard({super.key, required this.coffee});
+  const CoffeeCard({super.key, required this.coffee, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +19,13 @@ class CoffeeCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () {},
+        onTap: onTap, 
         child: Padding(
           padding: const EdgeInsets.all(6),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // IMAGE + LIKE
-              // AspectRatio(
-              //   aspectRatio: 1.1,
-              //   child: Stack(
-              //     children: [
-              //       ClipRRect(
-              //         borderRadius: BorderRadius.circular(14),
-              //         child: Image.network(
-              //           coffee.imageUrl,
-              //           fit: BoxFit.cover,
-              //           width: double.infinity,
-              //         ),
-              //       ),
-              //       const Positioned(top: 8, right: 8, child: LikeButton()),
-              //     ],
-              //   ),
-              // ),
               AspectRatio(
                 aspectRatio: 1.1,
                 child: Stack(
@@ -53,7 +38,9 @@ class CoffeeCard extends StatelessWidget {
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
-                            return Container(color: colors.surfaceContainerHighest);
+                            return Container(
+                              color: colors.surfaceContainerHighest,
+                            );
                           },
                         ),
                       ),

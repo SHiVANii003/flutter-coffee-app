@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/cart/view/cart_view.dart';
 import 'package:flutter_application_1/features/coffee/view-model/coffee_viewmodel.dart';
+import 'package:flutter_application_1/features/coffee/view/coffee_details_view.dart';
 import 'package:flutter_application_1/features/coffee/widgets/coffee_card.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,7 @@ class CoffeeView extends StatelessWidget {
           ],
         ),
         actions: [
-          //  CART ICON WITH BADGE
+          // 🛒 CART ICON WITH BADGE
           Stack(
             clipBehavior: Clip.none,
             children: [
@@ -51,7 +52,6 @@ class CoffeeView extends StatelessWidget {
                   );
                 },
               ),
-
               if (vm.cartItemCount > 0)
                 Positioned(
                   right: 6,
@@ -77,7 +77,6 @@ class CoffeeView extends StatelessWidget {
                 ),
             ],
           ),
-
           const SizedBox(width: 12),
         ],
       ),
@@ -97,7 +96,19 @@ class CoffeeView extends StatelessWidget {
                   childAspectRatio: config.aspectRatio,
                 ),
                 itemBuilder: (context, index) {
-                  return CoffeeCard(coffee: vm.coffees[index]);
+                  final coffee = vm.coffees[index];
+
+                  return CoffeeCard(
+                    coffee: coffee,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CoffeeDetailsScreen(coffee: coffee),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),

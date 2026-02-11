@@ -40,7 +40,7 @@ class _CartQuantityButtonState extends State<CartQuantityButton> {
             ),
             elevation: 0,
           ),
-          child: const Text('Add', style: TextStyle(fontSize: 12)),
+          child: const Text('Add to Cart', style: TextStyle(fontSize: 12)),
         ),
       );
     }
