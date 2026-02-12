@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../cart/widgets/add_to_cart_button.dart';
+import '../../../core/buttons/add_to_cart_button.dart';
 
 class DetailsInfoBlock extends StatelessWidget {
   final int price;
@@ -57,7 +57,7 @@ class DetailsInfoBlock extends StatelessWidget {
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               SizedBox(height: 6),
-              CartQuantityButton(),
+              CartQuantityButton(showAddButtonInitially: false),
             ],
           ),
         ],

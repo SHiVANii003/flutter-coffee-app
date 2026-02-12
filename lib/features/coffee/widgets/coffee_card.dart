@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/coffee/model/coffee_model.dart';
-import 'package:flutter_application_1/features/cart/widgets/add_to_cart_button.dart';
+import 'package:flutter_application_1/core/buttons/add_to_cart_button.dart';
 
 import 'like_button.dart';
 

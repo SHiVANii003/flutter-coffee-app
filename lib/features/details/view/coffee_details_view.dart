@@ -65,7 +65,7 @@ class _CoffeeDetailsView extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 10),
 
             Container(
               padding: const EdgeInsets.all(10),

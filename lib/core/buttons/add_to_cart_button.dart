@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 
 class CartQuantityButton extends StatefulWidget {
-  const CartQuantityButton({super.key});
+  final bool showAddButtonInitially;
+
+  const CartQuantityButton({super.key, this.showAddButtonInitially = true});
 
   @override
   State<CartQuantityButton> createState() => _CartQuantityButtonState();
 }
 
 class _CartQuantityButtonState extends State<CartQuantityButton> {
-  int quantity = 0;
+  late int quantity;
+
+  @override
+  void initState() {
+    super.initState();
+
+    quantity = widget.showAddButtonInitially ? 0 : 1;
+  }
 
   void _add() {
     setState(() {
@@ -18,7 +27,11 @@ class _CartQuantityButtonState extends State<CartQuantityButton> {
 
   void _remove() {
     setState(() {
-      if (quantity > 0) quantity--;
+      if (quantity > 1) {
+        quantity--;
+      } else if (widget.showAddButtonInitially) {
+        quantity = 0;
+      }
     });
   }
 
@@ -26,11 +39,19 @@ class _CartQuantityButtonState extends State<CartQuantityButton> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    if (quantity == 0) {
+    final bool shouldShowAddButton =
+        widget.showAddButtonInitially && quantity == 0;
+
+    // ADD TO CART (DEFAULT)
+    if (shouldShowAddButton) {
       return SizedBox(
         height: 30,
         child: ElevatedButton(
-          onPressed: _add,
+          onPressed: () {
+            setState(() {
+              quantity = 1;
+            });
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: colors.primary,
             foregroundColor: colors.onPrimary,
@@ -45,6 +66,7 @@ class _CartQuantityButtonState extends State<CartQuantityButton> {
       );
     }
 
+    // COUNTER
     return Container(
       height: 30,
       padding: const EdgeInsets.symmetric(horizontal: 6),
