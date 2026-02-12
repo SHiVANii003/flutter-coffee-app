@@ -30,9 +30,10 @@ class _CoffeeDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<CoffeeDetailsViewModel>();
+    final colors = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F4F4),
+      backgroundColor: Colors.white,
 
       body: SingleChildScrollView(
         child: Column(
@@ -50,6 +51,7 @@ class _CoffeeDetailsView extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+
                 Positioned(
                   top: 55,
                   left: 20,
@@ -58,38 +60,44 @@ class _CoffeeDetailsView extends StatelessWidget {
                     onTap: () => Navigator.pop(context),
                   ),
                 ),
+
                 const Positioned(bottom: 20, right: 20, child: LikeButton()),
               ],
             ),
 
-            const SizedBox(height: 14),
+            const SizedBox(height: 24),
 
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4),
               padding: const EdgeInsets.all(10),
-              
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     coffee.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
+                      color: colors.primary,
                     ),
                   ),
+
                   const SizedBox(height: 8),
-                  Text(coffee.description),
+
+                  Text(
+                    coffee.description,
+                    style: TextStyle(color: colors.onSurface, height: 1.5),
+                  ),
+
                   const SizedBox(height: 24),
 
                   DetailsInfoBlock(price: vm.calculateTotalPrice(coffee.price)),
 
                   const SizedBox(height: 28),
 
-                  ...vm.optionGroups
-                      .map((group) => OptionGroupWidget(group: group))
-                      .toList(),
-
+                  ...vm.optionGroups.map(
+                    (group) => OptionGroupWidget(group: group),
+                  ),
                 ],
               ),
             ),
@@ -102,7 +110,8 @@ class _CoffeeDetailsView extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF9C6B30),
+              backgroundColor: colors.primary,
+              foregroundColor: colors.onPrimary,
               padding: const EdgeInsets.symmetric(vertical: 18),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -111,6 +120,7 @@ class _CoffeeDetailsView extends StatelessWidget {
             onPressed: () {},
             child: Text(
               "Add to cart - ₹${vm.calculateTotalPrice(coffee.price)}",
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
         ),
